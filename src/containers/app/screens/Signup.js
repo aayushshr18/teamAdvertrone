@@ -122,7 +122,7 @@ const Signup = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="ac_no" className="form-label">Account No.</label>
+            <label htmlFor="ac_no" className="form-label">Salary Account No.</label>
             <input
               type="text"
               className="form-control"
