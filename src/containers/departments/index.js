@@ -9,13 +9,14 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import "./styles.scss";
 import TablePagination from "@mui/material/TablePagination";
 import { styled } from "@mui/material";
 import * as XLSX from "xlsx";
+import "./styles.scss";
 
 const Departments = () => {
   const [leads, setLeads] = useState([]);
+  const [filteredLeads, setFilteredLeads] = useState([]); // New state for filtered leads
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -36,7 +37,7 @@ const Departments = () => {
       );
       const result = await response.json();
       setLeads(result);
-      console.log(result);
+      setFilteredLeads(result); // Initialize filteredLeads with all leads
     } catch (error) {
       console.error(error);
     }
@@ -57,16 +58,21 @@ const Departments = () => {
   }));
 
   const handleSearch = () => {
-    const filteredLeads = leads?.filter(
+    const filtered = leads.filter(
       (lead) =>
-        lead.referBy.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.referred_agent_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.company_name[0].toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.mob_no.toLowerCase().includes(searchTerm.toLowerCase())
+        lead.referBy?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+        lead.referred_agent_id?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+        lead.status?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+        lead.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+        lead.company_name[0]?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+        lead.mob_no?.toLowerCase().includes(searchTerm?.toLowerCase())
     );
-    setLeads(filteredLeads||[]);
+    setFilteredLeads(filtered); // Update filteredLeads instead of leads
+  };
+
+  const handleViewAll = () => {
+    setFilteredLeads(leads); // Reset to original leads list
+    setSearchTerm(""); // Clear search input
   };
 
   const downloadExcel = (tableData, fileName) => {
@@ -117,22 +123,20 @@ const Departments = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           InputProps={{
             endAdornment: (
-              <>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSearch}
-                  style={{ backgroundColor: "#2a2185" }}
-                >
-                  Search
-                </Button>
-              </>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSearch}
+                style={{ backgroundColor: "#2a2185" }}
+              >
+                Search
+              </Button>
             ),
           }}
         />
-        <Button onClick={() => window.location.reload()}>View All</Button>
+        <Button onClick={handleViewAll}>View All</Button>
         <StyledButton
-          onClick={() => downloadExcel(leads, "lead_table.xlsx")}
+          onClick={() => downloadExcel(filteredLeads, "lead_table.xlsx")}
           style={{ width: "50%", padding: "15px" }}
         >
           Export
@@ -152,7 +156,9 @@ const Departments = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {leads?.length && leads?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((lead) => (
+            {filteredLeads
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((lead) => (
                 <TableRow key={lead._id}>
                   <TableCell>{lead.referBy}</TableCell>
                   <TableCell>{lead.referred_agent_id}</TableCell>
@@ -168,7 +174,7 @@ const Departments = () => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 20, 50]}
           component="div"
-          count={leads?.length}
+          count={filteredLeads.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handlePageChange}

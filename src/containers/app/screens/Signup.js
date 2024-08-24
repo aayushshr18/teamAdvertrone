@@ -7,7 +7,7 @@ const Signup = () => {
     name: '',
     email: '',
     password: '',
-    mobile: '',
+    mob_no: '',
     upi:'',
     ifsc:'',
     ac_no:''
@@ -149,8 +149,8 @@ const Signup = () => {
             <input
               type="tel"
               className="form-control"
-              id="mobile"
-              value={formData.mobile}
+              id="mob_no"
+              value={formData.mob_no}
               onChange={handleChange}
               required
             />

@@ -64,7 +64,7 @@ const Dashboard = () => {
       <div style={userInfoStyle}>
         <h2>{user.name}</h2>
         <p>Email: {user.email}</p>
-        <p>Phone: {user.phone}</p>
+        <p>Phone: {user.mob_no}</p>
       </div>
       <div className="row">
         <div className="col-12 col-sm-6 col-md-3 mb-4">
