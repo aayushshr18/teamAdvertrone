@@ -53,3 +53,12 @@ table ,th ,td{
     border-collapse: collapse;
     
 }
+
+@media screen and (max-width:"600px") {
+    .departments-page{
+    margin: 5px;
+}
+.departments-page #boxInDept{
+    flex-direction: column;
+}
+}

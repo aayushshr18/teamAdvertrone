@@ -94,11 +94,11 @@ const Withdraw = () => {
   );
 
   return (
-    <div style={{ margin: '20px auto', maxWidth: '600px', padding: '100px', border: '1px solid #ccc', borderRadius: '10px' }}>
-      <h2>Withdraw Amount</h2>
+    <div style={{ margin: '20px auto', maxWidth: '600px', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', boxSizing: 'border-box', width: '100%' }}>
+      <h2 style={{ fontSize: '24px', marginBottom: '20px', textAlign: 'center' }}>Withdraw Amount</h2>
       <form onSubmit={handleWithdraw}>
         <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Amount:</label>
+          <label style={{ display: 'block', marginBottom: '5px', fontSize: '18px' }}>Amount:</label>
           <input
             type="number"
             value={amount}
@@ -117,17 +117,19 @@ const Withdraw = () => {
             fontSize: '16px',
             cursor: 'pointer',
             borderRadius: '5px',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           Withdraw
         </button>
       </form>
       {message && (
-        <div style={{ marginTop: '20px', padding: '10px', borderRadius: '5px', backgroundColor: '#f0f0f0' }}>
+        <div style={{ marginTop: '20px', padding: '10px', borderRadius: '5px', backgroundColor: '#f0f0f0', fontSize: '16px' }}>
           {message}
         </div>
       )}
-      <h2>Past Withdrawal Requests</h2>
+      <h2 style={{ fontSize: '24px', marginTop: '40px', textAlign: 'center' }}>Past Withdrawal Requests</h2>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -135,12 +137,12 @@ const Withdraw = () => {
       ) : (
         <>
           {currentEntries.length > 0 ? (
-            <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
+            <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid #ccc' }}>
-                  <th style={{ padding: '10px', backgroundColor: '#f4f4f4' }}>Amount</th>
-                  <th style={{ padding: '10px', backgroundColor: '#f4f4f4' }}>Status</th>
-                  <th style={{ padding: '10px', backgroundColor: '#f4f4f4' }}>Date</th>
+                  <th style={{ padding: '10px', backgroundColor: '#f4f4f4', textAlign: 'left' }}>Amount</th>
+                  <th style={{ padding: '10px', backgroundColor: '#f4f4f4', textAlign: 'left' }}>Status</th>
+                  <th style={{ padding: '10px', backgroundColor: '#f4f4f4', textAlign: 'left' }}>Date</th>
                 </tr>
               </thead>
               <tbody>

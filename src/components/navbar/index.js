@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef } from "react";
 import "./style.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -15,6 +14,8 @@ import { navbarActions } from "../../redux/reducers/other";
 import { isHeaderHidden } from "../../utils/isHeaderHidden";
 import { employeeActions } from "../../redux/reducers/employee";
 import { BsDatabaseGear } from "react-icons/bs";
+import { HamburgerIcon } from "../icons";
+import { size } from "lodash";
 
 const navicons = {
   home_icon: () => <ion-icon name="home-outline"></ion-icon>,
@@ -39,6 +40,7 @@ const Navbar = () => {
   const location = useLocation();
   const pathName = location.pathname;
   const [headerData, setHeaderData] = useState(mapNavbarData({}));
+  const [isMobileNavVisible, setMobileNavVisible] = useState(false);
   const navRef = useRef(null);
   const { isActive: isNavActive, isHidden } = useSelector(
     (state) => state.navbar
@@ -70,6 +72,7 @@ const Navbar = () => {
       ...prev,
       navbarItems: list,
     }));
+    setMobileNavVisible(false); // Close the navbar on item click in mobile view
   };
 
   const syncEmployeeDetails = async () => {
@@ -83,61 +86,91 @@ const Navbar = () => {
     setHeaderData(mapNavbarData(response?.body?.employee));
   };
 
-  // useEffect(() => {
-  //   if (!isHidden) {
-  //     syncEmployeeDetails();
-  //   }
-  // }, [isHidden]);
-
   useEffect(() => {
     dispatch(navbarActions.setHeaderHidden(isHeaderHidden(pathName)));
   }, [pathName]);
 
   const closeOpenMenus = (e) => {
-    if (navRef.current && isNavActive && !navRef.current.contains(e.target)) {
-      dispatch(navbarActions.setIsActive(!isNavActive));
+    if (
+      navRef.current &&
+      isMobileNavVisible &&
+      !navRef.current.contains(e.target)
+    ) {
+      setMobileNavVisible(false);
     }
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", closeOpenMenus);
-  });
+    return () => {
+      document.removeEventListener("mousedown", closeOpenMenus);
+    };
+  }, [isMobileNavVisible]);
+
+  const toggleMobileNav = () => {
+    setMobileNavVisible(!isMobileNavVisible);
+  };
 
   return !isHidden ? (
-    <div className={`navigation ${!isNavActive ? "active" : ""}`} ref={navRef}>
-      <ul>
-        <li>
-          <Link to={"/"}>
-            <span className="icon"></span>
-            <span className="title brand">Advertrone</span>
-          </Link>
-        </li>
-
-        {headerData.navbarItems.map((item) => (
-          <li
-            key={item.id}
-            className={
-              item.paths.includes(pathName.split("/")[1]) ? "hovered" : ""
-            }
-            onClick={() => handleItemClick(item)}
-          >
-            <Link to={item.to}>
-              <span className="icon">{navicons[item.icon]()}</span>
-              <span className="title">{item.title}</span>
+    <>
+      <button
+        onClick={toggleMobileNav}
+        style={{
+          position: "fixed",
+          top: "20px",
+          left: "20px",
+          zIndex: "1000",
+          backgroundColor: "darkBlue",
+          color: "white",
+          border: "none",
+          padding: "10px 15px",
+          borderRadius: "5px",
+          display: "block", // Make sure the button shows on mobile view
+        }}
+      >
+        Menu{" "}
+      </button>
+      <div
+        className={`navigation ${isMobileNavVisible ? "active" : ""}`}
+        ref={navRef}
+        style={{
+          display: isMobileNavVisible ? "block" : "none", // Control visibility in mobile view
+        }}
+      >
+        <ul>
+          <li>
+            <Link to={"/"}>
+              <span className="icon"></span>
+              <span className="title brand">Advertrone</span>
             </Link>
           </li>
-        ))}
 
-        <li onClick={handleLogout}>
-          <Link to={"/"}>
-            <span className="icon">
-              <ion-icon name="log-out-outline"></ion-icon>
-            </span>
-            <span className="title">Sign Out</span>
-          </Link>
-        </li>
-      </ul>
-    </div>
+          {headerData.navbarItems.map((item) => (
+            <li
+              key={item.id}
+              className={
+                item.paths.includes(pathName.split("/")[1]) ? "hovered" : ""
+              }
+              onClick={() => handleItemClick(item)}
+            >
+              <Link to={item.to}>
+                <span className="icon">{navicons[item.icon]()}</span>
+                <span className="title">{item.title}</span>
+              </Link>
+            </li>
+          ))}
+
+          <li onClick={handleLogout}>
+            <Link to={"/"}>
+              <span className="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </span>
+              <span className="title">Sign Out</span>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </>
   ) : null;
 };
 

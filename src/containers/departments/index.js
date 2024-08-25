@@ -115,7 +115,7 @@ const Departments = () => {
 
   return (
     <div className="departments-page" style={{ backgroundColor: "transparent" }}>
-      <Box gap={"10px"} mb={2} display="flex" alignItems="center">
+      <Box id="boxInDept" gap={"10px"} mb={2} display="flex" alignItems="center">
         <TextField
           style={{ width: "100%" }}
           placeholder="Enter search term"

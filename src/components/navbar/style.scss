@@ -10,6 +10,7 @@
   overflow: hidden;
   z-index: 500;
 }
+
 .navigation.active {
   width: 100px;
 }
@@ -19,7 +20,6 @@
   top: 0;
   left: 0;
   width: 100%;
-  // padding-top: 20px;
 }
 
 .navigation ul li {
@@ -36,7 +36,6 @@
 }
 
 .navigation ul li:nth-child(1) {
-  // margin-bottom: 40px;
   pointer-events: none;
   transition: 0.5ms;
 }
@@ -49,6 +48,7 @@
   text-decoration: none;
   color: var(--white);
 }
+
 .navigation ul li:hover a,
 .navigation ul li.hovered a {
   color: var(--blue);
@@ -68,6 +68,7 @@
     transition: 0.5s;
   }
 }
+
 .navigation ul li a .icon ion-icon {
   font-size: 1.75rem;
 }
@@ -85,7 +86,7 @@
     font-size: 20px;
     font-weight: 700;
     span {
-        color: var(--yellow);
+      color: var(--yellow);
     }
   }
 }
@@ -104,6 +105,7 @@
   box-shadow: 35px 35px 0 10px var(--white);
   pointer-events: none;
 }
+
 .navigation ul li:hover a::after,
 .navigation ul li.hovered a::after {
   content: "";
@@ -118,15 +120,28 @@
   pointer-events: none;
 }
 
-// .navbar{
-//     width: calc(100% - 300px);
-//     position: absolute;
-//     left: 300px;
-//     top: 0px;
-//     transition: 0.5s;
-//     min-height: 100vh;
-//     &.active {
-//         width: calc(100% - 80px);
-//         left: 80px;
-//     }
-// }
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+  .navigation {
+    width: 0; /* Hide the navbar */
+    left: -200px; /* Position it off-screen */
+  }
+
+  .navigation.active {
+    width: 200px; /* Show the navbar */
+    left: 0; /* Position it on-screen */
+  }
+
+  .toggle-button {
+    display: block; /* Show the toggle button */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+}

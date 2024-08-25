@@ -54,10 +54,7 @@ const Header = () => {
 
   return !isHidden ? (
     <div className="header">
-      <div className="ham-icon" onClick={handleNav}>
-        <HamburgerIcon />
-      </div>
-
+      
       <div className="marquee-container" style={{ width: '70%' }}>
         {notices.length > 0 && (
           <marquee className="marquee" behavior="scroll" direction="left" style={{ width: '100%' }}>
