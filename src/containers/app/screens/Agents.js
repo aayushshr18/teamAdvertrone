@@ -131,7 +131,7 @@ const Agents = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="agentCode" className="form-label">
-                  Agent Code
+                  Employee ID
                 </label>
                 <input
                   type="text"
@@ -157,7 +157,7 @@ const Agents = () => {
               <thead>
                 <tr>
                   <th>Agent Name</th>
-                  <th>Code</th>
+                  <th>ID</th>
                   <th>*</th>
                 </tr>
               </thead>
