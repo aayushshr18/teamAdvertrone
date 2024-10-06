@@ -74,7 +74,7 @@ const Signup = () => {
   return (
     <div className="container mt-5 d-flex justify-content-center">
       <div className="card p-4" style={{ maxWidth: '400px', width: '100%' }}>
-        <h2 className="card-title text-center">Sign Up</h2>
+        <h2 className="card-title text-center">Telecalling Team Lead Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">Name</label>
