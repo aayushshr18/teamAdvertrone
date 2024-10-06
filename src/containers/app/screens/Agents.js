@@ -131,7 +131,7 @@ const Agents = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="agentCode" className="form-label">
-                  Agent Code
+                  Customer ID
                 </label>
                 <input
                   type="text"

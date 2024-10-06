@@ -48,7 +48,7 @@ const UserDetails = ({ show, onHide, user }) => {
               <td>{user.account_status}</td>
             </tr>
             <tr>
-              <th>Agent Code</th>
+              <th>Customer ID</th>
               <td>{user.agent_code}</td>
             </tr>
             <tr>

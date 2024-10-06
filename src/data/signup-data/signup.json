@@ -38,7 +38,7 @@
       {
         "component": "agent_code",
         "details": {
-          "label": "Agent Code",
+          "label": "Customer ID",
           "placeholder": ""
         }
       },

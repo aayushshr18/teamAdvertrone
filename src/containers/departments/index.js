@@ -147,7 +147,7 @@ const Departments = () => {
           <TableHead>
             <TableRow>
               <StyledTableCell>REFER_BY</StyledTableCell>
-              <StyledTableCell>AGENT_CODE</StyledTableCell>
+              <StyledTableCell>CUSTOMER_ID</StyledTableCell>
               <StyledTableCell>COMPANY_NAME</StyledTableCell>
               <StyledTableCell>NAME</StyledTableCell>
               <StyledTableCell>NUMBER</StyledTableCell>
