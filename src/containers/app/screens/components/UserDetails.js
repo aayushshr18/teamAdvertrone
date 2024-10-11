@@ -20,7 +20,7 @@ const UserDetails = ({ show, onHide, user }) => {
               <td>{user.name}</td>
             </tr>
             <tr>
-              <th>Mobile No</th>
+              <th>URL</th>
               <td>{user.mob_no}</td>
             </tr>
             <tr>
@@ -48,7 +48,7 @@ const UserDetails = ({ show, onHide, user }) => {
               <td>{user.account_status}</td>
             </tr>
             <tr>
-              <th>Customer ID</th>
+              <th>Number</th>
               <td>{user.agent_code}</td>
             </tr>
             <tr>
